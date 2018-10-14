@@ -14,7 +14,7 @@ from Bio.HMM import Utilities
 
 #Membuat array DNA dan state pada HMM
 class arrayDNA(Alphabet.Alphabet):
-    letters = ['A','C','G','S', 'T']
+    letters = ['A','C','G','S', 'T', ' ']
 
 #I = Insert, D = Delete
 class arrayState(Alphabet.Alphabet):
@@ -25,7 +25,7 @@ markovBuilder = MarkovModel.MarkovModelBuilder(arrayState(),arrayDNA())
 
 
 #transisi dari semua state ke state lainnya
-markovBuilder.allow_all_transition()
+markovBuilder.allow_all_transitions()
 
 
 
@@ -61,7 +61,7 @@ markovModel = markovBuilder.get_markov_model()
 
 #3 sequence yang akan dialign
 seq1 = Seq('ATGA',arrayDNA())
-seq2 = Seq('ACCA',arrayDNA())
+seq2 = Seq('A CCA',arrayDNA())
 seq3 = Seq('ACAST',arrayDNA())
 
 
@@ -87,8 +87,8 @@ testSeq = Seq('ATSA', arrayDNA())
 testState = MutableSeq('MNOP', arrayState())
 
 #mencari state terbaik untuk sequence dengan Viterbi Algorithm
-predictedstates, prob = trainedhmm.viterbi(testseq, arrayState())
+predictedstates, prob = trainedhmm.viterbi(testSeq, arrayState())
 
 #mengeluarkan hasil probabilitas dari sequence, emission, statenya, dan predicted statenya 
 print("Probabilitas Prediksi: %f" % prob)
-Utilities.pretty_print_prediction(testSeq, testState, predicted_states)
+Utilities.pretty_print_prediction(testSeq, testState, predictedstates)
